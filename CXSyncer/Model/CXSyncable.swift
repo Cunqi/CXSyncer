@@ -34,7 +34,7 @@ public extension CXSyncable {
     }
 
     var dataType: String {
-        return "CXSyncNoneType"
+        return String(describing: self)
     }
 
     var syncStatus: CXSyncStatus {
