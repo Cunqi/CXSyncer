@@ -10,7 +10,7 @@ import UIKit
 import CXSyncer
 
 class Demo: CXSyncable {
-    var data: Data? {
+    var cxData: Data? {
         return UUID().uuidString.data(using: .utf8) ?? Data()
     }
 }

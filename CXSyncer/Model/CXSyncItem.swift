@@ -26,23 +26,23 @@ class CXSyncItem: Object {
 
     static func getInstance(from item: CXSyncable) -> CXSyncItem {
         let syncItem = CXSyncItem()
-        syncItem.id = item.id
-        syncItem.creationDate = item.creationDate
-        syncItem.data = item.data
-        syncItem.dataType = item.dataType
-        syncItem.syncStatus = item.syncStatus.rawValue
+        syncItem.id = item.cxId
+        syncItem.creationDate = item.cxCreationDate
+        syncItem.data = item.cxData
+        syncItem.dataType = item.cxDataType
+        syncItem.syncStatus = item.cxSyncStatus.rawValue
         return syncItem
     }
 
     func getOutputItem() -> CXSyncable {
-        return CXSyncOutputItem(id: id, creationDate: creationDate, data: data, dataType: dataType, syncStatus: CXSyncStatus(rawValue: syncStatus)!)
+        return CXSyncOutputItem(cxId: id, cxCreationDate: creationDate, cxData: data, cxDataType: dataType, cxSyncStatus: CXSyncStatus(rawValue: syncStatus)!)
     }
 }
 
 struct CXSyncOutputItem: CXSyncable {
-    let id: String
-    let creationDate: Date
-    let data: Data?
-    let dataType: String
-    let syncStatus: CXSyncStatus
+    let cxId: String
+    let cxCreationDate: Date
+    let cxData: Data?
+    let cxDataType: String
+    let cxSyncStatus: CXSyncStatus
 }

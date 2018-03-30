@@ -48,7 +48,7 @@ class CXSyncStorage {
 
     private func mark(item: CXSyncable, with status: CXSyncStatus) {
         realmQueue.async {
-            let id = item.id
+            let id = item.cxId
             let realm = try! Realm()
             let results = realm.objects(CXSyncItem.self).filter("id == '\(id)' AND syncStatus == \(CXSyncStatus.inProgress.rawValue)")
             try! realm.write {

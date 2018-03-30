@@ -17,27 +17,27 @@ public enum CXSyncStatus: Int {
 }
 
 public protocol CXSyncable {
-    var id: String { get }
-    var creationDate: Date { get }
-    var data: Data? { get }
-    var dataType: String { get }
-    var syncStatus: CXSyncStatus { get }
+    var cxId: String { get }
+    var cxCreationDate: Date { get }
+    var cxData: Data? { get }
+    var cxDataType: String { get }
+    var cxSyncStatus: CXSyncStatus { get }
 }
 
 public extension CXSyncable {
-    var id: String {
+    var cxId: String {
         return UUID().uuidString
     }
 
-    var creationDate: Date {
+    var cxCreationDate: Date {
         return Date()
     }
 
-    var dataType: String {
+    var cxDataType: String {
         return String(describing: self)
     }
 
-    var syncStatus: CXSyncStatus {
+    var cxSyncStatus: CXSyncStatus {
         return .unsynced
     }
 }

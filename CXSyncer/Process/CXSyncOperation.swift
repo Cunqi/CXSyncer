@@ -11,7 +11,7 @@ import Foundation
 class CXSyncOperation {
     static func getOperation(for item: CXSyncable, with storage: CXSyncStorage) -> BlockOperation {
         return BlockOperation {
-            let strategy = CXSyncerConfiguration.processStrategies[item.dataType] ?? CXSyncerConfiguration.defaultStrategy
+            let strategy = CXSyncerConfiguration.processStrategies[item.cxDataType] ?? CXSyncerConfiguration.defaultStrategy
             strategy?.sync(with: item, syncStorage: storage)
         }
     }
