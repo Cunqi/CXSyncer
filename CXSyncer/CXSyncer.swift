@@ -30,4 +30,8 @@ public class CXSyncer {
     public func retrySyncingForDataIssue() {
         syncGuard.retrySyncing(reason: .syncFailedByDataIssue)
     }
+
+    public func removeAll() {
+        storage.removeAllData()
+    }
 }

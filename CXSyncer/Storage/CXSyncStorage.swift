@@ -58,4 +58,16 @@ class CXSyncStorage {
             }
         }
     }
+
+    func removeAllData() {
+        realmQueue.async {
+            let realm = try! Realm()
+            let result = realm.objects(CXSyncItem.self)
+            try! realm.write {
+                for item in result {
+                    realm.delete(item)
+                }
+            }
+        }
+    }
 }
