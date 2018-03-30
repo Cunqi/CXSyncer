@@ -11,5 +11,7 @@ import Foundation
 public typealias CXSyncDataType = String
 
 public class CXSyncerConfiguration {
-    static var processStrategies = [CXSyncDataType: CXSyncProcessStrategy]()
+    public static var processStrategies = [CXSyncDataType: CXSyncProcessStrategy]()
+    public static var defaultStrategy: CXSyncProcessStrategy!
+    public static var maxConcurrentOperationCount: Int = 5
 }

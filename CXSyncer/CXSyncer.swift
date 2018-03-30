@@ -9,15 +9,25 @@
 import Foundation
 
 public class CXSyncer {
-    static let shared = CXSyncer()
+    public static let shared = CXSyncer()
 
     let storage: CXSyncStorage
+    let syncGuard: CXSyncGuard
 
     init() {
-        storage = CXSyncStorage(with: CXSyncGuard())
+        storage = CXSyncStorage()
+        syncGuard = CXSyncGuard(storage: storage)
     }
 
-    func submit(_ item: CXSyncable) {
+    public func submit(_ item: CXSyncable) {
+        storage.submit(with: item)
+    }
 
+    public func retrySyncingForServerFailure() {
+        syncGuard.retrySyncing(reason: .syncFailedByServerIssue)
+    }
+
+    public func retrySyncingForDataIssue() {
+        syncGuard.retrySyncing(reason: .syncFailedByDataIssue)
     }
 }

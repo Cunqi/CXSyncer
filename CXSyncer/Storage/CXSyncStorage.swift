@@ -11,12 +11,6 @@ import RealmSwift
 
 class CXSyncStorage {
     let realmQueue = DispatchQueue(label: "CXRealmQueue")
-    let syncGuard: CXSyncGuard
-
-
-    init(with syncGuard: CXSyncGuard) {
-        self.syncGuard = syncGuard
-    }
 
     func submit(with item: CXSyncable) {
         realmQueue.async {
@@ -24,6 +18,18 @@ class CXSyncStorage {
             let realm = try! Realm()
             try! realm.write {
                 realm.add(syncItem, update: true)
+            }
+        }
+    }
+
+    func delete(itemRef: ThreadSafeReference<CXSyncItem>) {
+        realmQueue.async {
+            let realm = try! Realm()
+            guard let item = realm.resolve(itemRef) else {
+                return
+            }
+            try! realm.write {
+                realm.delete(item)
             }
         }
     }
@@ -44,7 +50,7 @@ class CXSyncStorage {
         realmQueue.async {
             let id = item.id
             let realm = try! Realm()
-            let results = realm.objects(CXSyncItem.self).filter("id == '\(id)' AND syncStatus == 0")
+            let results = realm.objects(CXSyncItem.self).filter("id == '\(id)' AND syncStatus == \(CXSyncStatus.inProgress.rawValue)")
             try! realm.write {
                 for item in results {
                     item.syncStatus = status.rawValue

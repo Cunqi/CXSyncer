@@ -9,19 +9,10 @@
 import Foundation
 
 class CXSyncOperation {
-    private let item: CXSyncable
-
-    init(with item: CXSyncable) {
-        self.item = item
-    }
-
-    func getOperation() -> BlockOperation {
-        return BlockOperation { [weak self] in
-            guard let mItem = self?.item else {
-                return
-            }
-            let strategy = CXSyncerConfiguration.processStrategies[mItem.dataType]
-            strategy?.sync(with: mItem)
+    static func getOperation(for item: CXSyncable, with storage: CXSyncStorage) -> BlockOperation {
+        return BlockOperation {
+            let strategy = CXSyncerConfiguration.processStrategies[item.dataType] ?? CXSyncerConfiguration.defaultStrategy
+            strategy?.sync(with: item, syncStorage: storage)
         }
     }
 }
