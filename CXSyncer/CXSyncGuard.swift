@@ -61,7 +61,7 @@ class CXSyncGuard {
 
     private func removeSyncItem(for item: CXSyncItem) {
         let itemRef = ThreadSafeReference(to: item)
-        self?.storage.delete(itemRef: itemRef)
+        self.storage.delete(itemRef: itemRef)
     }
 
     private func processSyncItem(for item: CXSyncItem) {
@@ -85,11 +85,11 @@ class CXSyncGuard {
     }
 
     func retrySyncing(reason: CXSyncStatus) {
-        syncQueue.async {
+        syncQueue.async { [weak self] in
             let realm = try! Realm()
             let failureResults = realm.objects(CXSyncItem.self).filter("syncStatus == \(reason.rawValue)")
             for item in failureResults {
-                processSyncItem(for: item)
+                self?.processSyncItem(for: item)
             }
         }
     }
