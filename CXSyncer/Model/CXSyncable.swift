@@ -19,7 +19,7 @@ public enum CXSyncStatus: Int {
 public protocol CXSyncable {
     var id: String { get }
     var creationDate: Date { get }
-    var data: Data { get }
+    var data: Data? { get }
     var dataType: String { get }
     var syncStatus: CXSyncStatus { get }
 }

@@ -12,7 +12,7 @@ import RealmSwift
 class CXSyncItem: Object {
     @objc dynamic var id: String = ""
     @objc dynamic var creationDate: Date = Date()
-    @objc dynamic var data: Data = Data()
+    @objc dynamic var data: Data? = nil
     @objc dynamic var dataType: String = ""
     @objc dynamic var syncStatus: Int = CXSyncStatus.unsynced.rawValue
 
@@ -42,7 +42,7 @@ class CXSyncItem: Object {
 struct CXSyncOutputItem: CXSyncable {
     let id: String
     let creationDate: Date
-    let data: Data
+    let data: Data?
     let dataType: String
     let syncStatus: CXSyncStatus
 }
