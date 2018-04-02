@@ -49,16 +49,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 class DemoSyncStrategy: CXSyncProcessStrategy {
     var index = 0
-    override func sync(with item: CXSyncable, success: @escaping CXSyncProcessSuccess, failure: @escaping CXSyncProcessFailure) {
+    override func sync(with item: CXSyncable, successCompletion: @escaping CXSyncProcessSuccess, failureCompletion: @escaping CXSyncProcessFailure) {
         Thread.sleep(forTimeInterval: 3)
         if index % 3 == 0 {
-            failure(item, 400, nil)
+            failureCompletion(item, 400, nil)
             print("Failure 400 processed")
         } else if index % 5 == 0 {
-            failure(item, 501, nil)
+            failureCompletion(item, 501, nil)
             print("Failure 500 processed")
         } else {
-            success(item, 200)
+            successCompletion(item, 200)
             print("Success 200 processed")
         }
         index += 1

@@ -32,10 +32,10 @@ open class CXSyncProcessStrategy {
                 syncStorage.markAsSyncFailureByServerIssue(with: item)
             }
         }
-        sync(with: item, success: success, failure: failure)
+        sync(with: item, successCompletion: success, failureCompletion: failure)
     }
 
-    open func sync(with item: CXSyncable, success: @escaping CXSyncProcessSuccess, failure: @escaping CXSyncProcessFailure) {
+    open func sync(with item: CXSyncable, successCompletion: @escaping CXSyncProcessSuccess, failureCompletion: @escaping CXSyncProcessFailure) {
         fatalError("this method should be overridden")
     }
 }
